@@ -1,31 +1,33 @@
-namespace Article;
-public static class RemiseManager
+namespace Article
 {
-    // Délégué pour définir le type de méthode de remise
-    public delegate decimal RemiseArticle(decimal prix, decimal taux);
-
-    // Méthodes de remise
-    public static decimal RemiseFixe(decimal prix, decimal taux)
+    public class RemiseManager
     {
-        return prix * taux; // Remise de type pourcentage (ex. 0.1 pour 10%)
-    }
+        // Définition du délégué pour les stratégies de remise
+        public delegate decimal DiscountStrategy(Article article);
 
-    public static decimal RemiseAbsolue(decimal prix, decimal taux)
-    {
-        return taux; // Remise fixe (ex. 5 €)
-    }
+        // Méthode statique : Remise fixe
+        public static decimal RemiseFixe(Article article)
+        {
+            decimal remise = 5; // Exemple de remise fixe de 5 unités monétaires
+            return article.prix - remise;
+        }
 
-    // Tableau de délégués pour stocker les stratégies de remise
-    private static RemiseArticle[] discountStrategies = new RemiseArticle[]
-    {
-        RemiseFixe,
-        RemiseAbsolue
-    };
+        // Méthode statique : Remise en pourcentage
+        public static decimal RemisePourcentage(Article article)
+        {
+            decimal pourcentage = 0.1m; // Remise de 10%
+            return article.prix - (article.prix * pourcentage);
+        }
 
-    // Méthode pour appliquer la première stratégie de remise
-    public static decimal AppliquerRemise(decimal prix, decimal taux)
-    {
-        // On utilise la première stratégie (par exemple)
-        return discountStrategies[0](prix, taux);
+        // Méthode statique : Remise basée sur le type d'article
+        public static decimal RemiseBaséeSurType(Article article)
+        {
+            return article.type switch
+            {
+                TypeArticle.Alimentaire => article.prix * 0.8m, // 20% de remise pour les aliments
+                TypeArticle.Electronique => article.prix * 0.85m, // 15% de remise pour l'électronique
+                _ => article.prix, // Pas de remise pour les autres types
+            };
+        }
     }
 }

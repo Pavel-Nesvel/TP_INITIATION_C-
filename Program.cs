@@ -1,57 +1,64 @@
-﻿namespace Article
+﻿namespace Article;
+class Program
 {
-    class Program
-    {
+
         public static void Main(string[] args)
         {
-            // Création de plusieurs articles
-            Article article1 = new Article("Pâtes", 4, TypeArticle.Alimentaire, 50);
-            Article article2 = new Article("Savon", 3, TypeArticle.Droguerie, 20);
-            Article article3 = new Article("T-shirt", 15, TypeArticle.Habillement, 10);
+            
+             // Création de plusieurs articles
+        Article article1 = new Article("Pâtes", 1, TypeArticle.Alimentaire, 50);
+        Article article2 = new Article("Savon", 2, TypeArticle.Droguerie, 20);
+        Article article3 = new Article("T-shirt", 15, TypeArticle.Habillement, 10);
 
-            // Création de publications spécifiques
-            Livre livre1 = new Livre("Livre de cuisine", 20, TypeArticle.Loisir, "123456789", 150, 5);
-            Disque disque1 = new Disque("Album Rock", 25, TypeArticle.Electronique, "Label XYZ", 10);
-            Video video1 = new Video("Film d'action", 30, TypeArticle.Loisir, 120, 3);
+        // Création de publications spécifiques
+        Livre livre1 = new Livre("Livre de cuisine", 20, TypeArticle.Loisir, "123456789", 150, 5);
+        Disque disque1 = new Disque("Album Rock", 25, TypeArticle.Electronique, "Label XYZ", 10);
+        Video video1 = new Video("Film d'action", 30, TypeArticle.Loisir, 120, 3);
 
-            // Création d'une liste de publications
-            List<Publication> publications = new List<Publication> { livre1, disque1, video1 };
+        // Création d'une liste de publications
+        List<Publication> publications = new List<Publication> { livre1, disque1, video1 };
 
-            // Affichage des détails des publications
-            Console.WriteLine("\nDétails des publications :");
-            foreach (var publication in publications)
-            {
-                publication.PublishDetails();
-                Console.WriteLine();
-            }
+        // Affichage des détails des publications
+        Console.WriteLine("\nDétails des publications :");
+        foreach (var publication in publications)
+        {
+            publication.PublishDetails();
+            Console.WriteLine();
+        }
 
-            ArticleTableau tableau = new ArticleTableau(article1, article2, article3);
+        
+        ArticleTableau tableau = new ArticleTableau(article1, article2, article3);
 
-            // Affichage des articles
-            tableau.afficherArticles();
+        // Display table
+        tableau.afficherArticles();
 
+        Console.WriteLine("Articles initiaux :");
+        article1.Afficher();
+        article2.Afficher();
+        article3.Afficher();
+
+        Console.WriteLine("\nModification des quantités :");
+        article1.Ajouter(10);
+        article2.Retirer(5);
+        article3.Ajouter(5);
+
+        Console.WriteLine("\nArticles après modification :");
+        article1.Afficher();
+        article2.Afficher();
+        article3.Afficher();
+
+        // Création d'instances du délégué DiscountStrategy et association aux méthodes de remise
+            RemiseManager.DiscountStrategy remiseFixeDelegate = RemiseManager.RemiseFixe;
+            RemiseManager.DiscountStrategy remisePourcentageDelegate = RemiseManager.RemisePourcentage;
+            RemiseManager.DiscountStrategy remiseBaséeSurTypeDelegate = RemiseManager.RemiseBaséeSurType;
+
+            // Affichage des détails des articles avant remise
             Console.WriteLine("Articles initiaux :");
             article1.Afficher();
             article2.Afficher();
             article3.Afficher();
 
-            // Application de remises
-            Console.WriteLine("\nApplication des remises :");
-            decimal remise = 0.1m; // Remise de 10%
-            Console.WriteLine($"Prix de l'article {article1.designation} après remise : {RemiseManager.AppliquerRemise(article1.prix, remise)} €");
-            Console.WriteLine($"Prix de l'article {article2.designation} après remise : {RemiseManager.AppliquerRemise(article2.prix, remise)} €");
-            Console.WriteLine($"Prix de l'article {article3.designation} après remise : {RemiseManager.AppliquerRemise(article3.prix, remise)} €");
-
-            Console.WriteLine("\nModification des quantités :");
-            article1.Ajouter(10);
-            article2.Retirer(5);
-            article3.Ajouter(5);
-
-            Console.WriteLine("\nArticles après modification :");
-            article1.Afficher();
-            article2.Afficher();
-            article3.Afficher();
-
+            // Demande des informations pour créer un nouvel article par l'utilisateur
             Console.WriteLine("\nCréation d'un nouvel article par saisie utilisateur :");
             try
             {
@@ -81,13 +88,48 @@
                 Console.WriteLine("\nNouvel article créé et modifié :");
                 nouvelArticle.Afficher();
 
-                // Affichage du prix après remise pour le nouvel article
-                Console.WriteLine($"\nPrix du nouvel article {nouvelArticle.designation} après remise : {RemiseManager.AppliquerRemise(nouvelArticle.prix, remise)} €");
+                // Demande à l'utilisateur quel type de remise appliquer
+                Console.WriteLine("\nChoisissez le type de remise à appliquer :");
+                Console.WriteLine("1. Remise fixe (ex : 2€)");
+                Console.WriteLine("2. Remise en pourcentage (ex : 10%)");
+                Console.WriteLine("3. Remise basée sur le type d'article (ex : 10% sur les alimentaires)");
+
+                int choixRemise = Convert.ToInt32(Console.ReadLine());
+                decimal prixFinal = 0;
+
+                switch (choixRemise)
+                {
+                    case 1:
+                        // Application de la remise fixe
+                        prixFinal = remiseFixeDelegate(nouvelArticle);
+                        Console.WriteLine($"Prix après remise fixe pour {nouvelArticle.designation} : {prixFinal} €");
+                        break;
+                    case 2:
+                        // Application de la remise en pourcentage
+                        prixFinal = remisePourcentageDelegate(nouvelArticle);
+                        Console.WriteLine($"Prix après remise en pourcentage pour {nouvelArticle.designation} : {prixFinal} €");
+                        break;
+                    case 3:
+                        // Application de la remise basée sur le type
+                        prixFinal = remiseBaséeSurTypeDelegate(nouvelArticle);
+                        Console.WriteLine($"Prix après remise basée sur le type pour {nouvelArticle.designation} : {prixFinal} €");
+                        break;
+                    default:
+                        Console.WriteLine("Choix invalide. Aucune remise appliquée.");
+                        break;
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Erreur lors de la création de l'article : {ex.Message}");
             }
+
+            // Affichage des détails des articles après modification et application de la remise
+            Console.WriteLine("\nArticles après modification :");
+            article1.Afficher();
+            article2.Afficher();
+            article3.Afficher();
         }
-    }
+           
+    
 }

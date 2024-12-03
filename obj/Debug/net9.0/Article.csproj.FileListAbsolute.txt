@@ -12,3 +12,4 @@ C:\Users\pavel\Article\obj\Debug\net9.0\refint\Article.dll
 C:\Users\pavel\Article\obj\Debug\net9.0\Article.pdb
 C:\Users\pavel\Article\obj\Debug\net9.0\Article.genruntimeconfig.cache
 C:\Users\pavel\Article\obj\Debug\net9.0\ref\Article.dll
+C:\Users\pavel\Article\obj\Debug\net9.0\Article.sourcelink.json
