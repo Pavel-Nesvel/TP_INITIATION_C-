@@ -177,7 +177,7 @@ class Program
      };
       
             Console.WriteLine("########################################################################"); 
-            Console.WriteLine("########################################################################"); 
+            
 
                 //Filtrage avancé avec l’opérateur OfType
                    //Créez une liste contenant à la fois des objets Article et d’autres objets quelconques
@@ -188,7 +188,23 @@ class Program
                     Console.WriteLine(article);
                    }
 
-           
+
+                   Console.WriteLine("########################################################################"); 
+                    List<Article> articlesAnyme = new List<Article> {
+                    new("Pomme", 25,TypeArticle.Alimentaire, 50),
+                    new("Banane", 25,TypeArticle.Alimentaire, 50),
+                    new("Saumon", 25,TypeArticle.Alimentaire, 50),
+                    new("Savon", 32,TypeArticle.Droguerie,20),
+                    new("T-shirt", 150,TypeArticle.Habillement,30),
+                    };
+
+                   //rojection avec des types anonymes :
+                        // Créez une vue simplifiée de vos articles en ne conservant que le nom et le prix sous forme detype anonyme.
+                        // Affichez ces types anonymes dans la console
+
+                foreach (var anonymeArticle in articlesAnyme){
+                    Console.WriteLine(anonymeArticle.designation +"  " + anonymeArticle.prix );
+                }
         }
 
 
