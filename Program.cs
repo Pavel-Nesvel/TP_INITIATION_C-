@@ -151,14 +151,17 @@ class Program
            }
 
 
-            
+           int  totalStock=0;
             Console.WriteLine("########################################################################"); 
            //Trier les articles par prix décroissant
            var articleSorted = articles.OrderByDescending(article => article.prix).ToList();
 
            foreach (var article in articleSorted){
-                Console.WriteLine(article);     
+                Console.WriteLine(article); 
+                totalStock +=article.quantite;    
            }
+
+           Console.WriteLine("\n le total des articles est:" + " "+ totalStock); 
            
         }
 
