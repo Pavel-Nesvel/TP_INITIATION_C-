@@ -202,8 +202,10 @@ class Program
                         // Créez une vue simplifiée de vos articles en ne conservant que le nom et le prix sous forme detype anonyme.
                         // Affichez ces types anonymes dans la console
 
-                foreach (var anonymeArticle in articlesAnyme){
-                    Console.WriteLine(anonymeArticle.designation +"  " + anonymeArticle.prix );
+                var anonymeArticle = articlesAnyme.Select(article => new {article.designation, article.prix}).ToList();
+
+                foreach (var anonymeArt in anonymeArticle){
+                    Console.WriteLine($" -> {anonymeArt}");
                 }
         }
 
