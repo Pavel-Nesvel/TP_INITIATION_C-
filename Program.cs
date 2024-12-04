@@ -129,7 +129,28 @@ class Program
             article1.Afficher();
             article2.Afficher();
             article3.Afficher();
-        }
+
+
+            // TP3 LInQ
+    List<Article> articles = new List<Article> {
+    new("Pomme", 25,TypeArticle.Alimentaire, 50),
+    new("Banane", 25,TypeArticle.Alimentaire, 50),
+    new("Saumon", 25,TypeArticle.Alimentaire, 50),
+    new("Savon", 32,TypeArticle.Droguerie,20),
+    new("T-shirt", 150,TypeArticle.Habillement,30) };
+
+    //Étape 2 : Analyse des données avec LINQ
+
+       //1. Requêtes LINQ de base 
+           //Lister tous les articles appartenant à un type spécifique (ex. "Alimentaire"
            
-    
+           var typeArticle = articles.Where(article => article.type == TypeArticle.Alimentaire );
+
+           foreach (var article in typeArticle){
+                Console.WriteLine("article alimentaire" + "  " +article);     
+           }
+        }
+
+
+           
 }
