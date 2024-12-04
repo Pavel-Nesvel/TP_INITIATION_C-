@@ -137,7 +137,8 @@ class Program
     new("Banane", 25,TypeArticle.Alimentaire, 50),
     new("Saumon", 25,TypeArticle.Alimentaire, 50),
     new("Savon", 32,TypeArticle.Droguerie,20),
-    new("T-shirt", 150,TypeArticle.Habillement,30) };
+    new("T-shirt", 150,TypeArticle.Habillement,30),
+     };
 
     //Étape 2 : Analyse des données avec LINQ
 
@@ -162,6 +163,31 @@ class Program
            }
 
            Console.WriteLine("\n le total des articles est:" + " "+ totalStock); 
+
+
+
+             List<Object> articlesWithNoType = new List<Object>() {
+        new Article("Pomme", 25,TypeArticle.Alimentaire, 50),
+        new Article("Banane", 25,TypeArticle.Alimentaire, 50),
+        new Article("Saumon", 25,TypeArticle.Alimentaire, 50),
+        new Article("Savon", 32,TypeArticle.Droguerie,20),
+        new Article("T-shirt", 150,TypeArticle.Habillement,30),
+        ("lalla", 55,"banane", "lala", "sama"),
+        ("AOAO", 55,"lUNDI", "OOOO", 15),
+     };
+      
+            Console.WriteLine("########################################################################"); 
+            Console.WriteLine("########################################################################"); 
+
+                //Filtrage avancé avec l’opérateur OfType
+                   //Créez une liste contenant à la fois des objets Article et d’autres objets quelconques
+
+                   IEnumerable<Article> query = articlesWithNoType.OfType<Article>().ToList();
+
+                   foreach (var article in query){
+                    Console.WriteLine(article);
+                   }
+
            
         }
 
