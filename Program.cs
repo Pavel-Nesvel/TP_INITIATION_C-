@@ -149,6 +149,17 @@ class Program
            foreach (var article in typeArticle){
                 Console.WriteLine("article alimentaire" + "  " +article);     
            }
+
+
+            
+            Console.WriteLine("########################################################################"); 
+           //Trier les articles par prix décroissant
+           var articleSorted = articles.OrderByDescending(article => article.prix).ToList();
+
+           foreach (var article in articleSorted){
+                Console.WriteLine(article);     
+           }
+           
         }
 
 

@@ -8,7 +8,7 @@ public class Article: Publication
         public TypeArticle type; // Propriété en lecture seule
 
 
-    public Article (string designation, int prix,TypeArticle type,int quantite = 0, int v = 0) {
+    public Article (string designation, int prix,TypeArticle type,int quantite = 0) {
         this.designation = designation; 
         this.prix = prix;
         this.quantite = quantite;
